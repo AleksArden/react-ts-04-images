@@ -1,1 +1,1 @@
-# react-ts-04-image-finder
+# react-ts-04-image

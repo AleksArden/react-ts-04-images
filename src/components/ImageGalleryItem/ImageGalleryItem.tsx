@@ -1,12 +1,17 @@
-import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
+import { ICurrentImage, Item } from 'type/typeImages';
 
-export const ImageGalleryItem = ({
-  webformatURL,
+interface IProps {
+ image: Item,
+  onOpenModal: (image: ICurrentImage) => void
+}
+
+export const ImageGalleryItem = ({ image:
+  {webformatURL,
   tags,
-  largeImageURL,
+  largeImageURL},
   onOpenModal,
-}) => {
+}: IProps) => {
   return (
     <li
       id="gallery"
@@ -16,10 +21,4 @@ export const ImageGalleryItem = ({
       <img className={css.image} src={webformatURL} alt={tags} />
     </li>
   );
-};
-ImageGalleryItem.propTypes = {
-  webformatURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  largeImageURL: PropTypes.string.isRequired,
-  onOpenModal: PropTypes.func.isRequired,
 };

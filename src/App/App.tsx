@@ -6,24 +6,26 @@ import { ImageGallery } from '../components/ImageGallery/ImageGallery';
 import { Button } from '../components/Button/Button';
 import { Loader } from '../components/Loader/Loader';
 import { Modal } from '../components/Modal/Modal';
+import { IImages, ICurrentImage } from 'type/typeImages';
+import { IFetch } from 'type/typeFetch';
 
 import css from './App.module.css';
 
 Notiflix.Notify.init({
   width: '400px',
   fontSize: '20px',
-  cssAnimationStyl: 'zoom',
+  cssAnimationStyle: 'zoom',
   position: 'center-center',
 });
 
 export const App = () => {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<IImages[]>([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
-  const [currentImage, setCurrentImage] = useState(null);
+  const [currentImage, setCurrentImage] = useState<ICurrentImage | null>(null);
 
-  const handleSearch = search => {
+  const handleSearch = (search: string):void => {
     if (search === '') {
       Notiflix.Notify.info('Please, fill in the search field!');
     }
@@ -44,8 +46,8 @@ export const App = () => {
       }
     };
 
-    const onResolve = ({ hits, total, totalHits }) => {
-      const newImages = hits.map(
+    const onResolve = ({ hits, total, totalHits }: IFetch): void => {
+      const newImages: IImages[] = hits.map(
         ({ id, webformatURL, tags, largeImageURL }) => ({
           id,
           webformatURL,
@@ -77,26 +79,26 @@ export const App = () => {
     getImages(search, page);
   }, [search, page]);
 
-  const handleClickButtonLoadMore = () => {
-    setPage(state => state + 1);
+  const handleClickButtonLoadMore = (): void => {
+    setPage(page => page + 1);
   };
 
   useEffect(() => {
     if (page > 1) onPageScrolling();
   }, [images, page]);
 
-  const handleOpenModal = image => {
+  const handleOpenModal = (image: ICurrentImage):void => {
     setCurrentImage(image);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setCurrentImage(null);
   };
 
   const onPageScrolling = () => {
     const { height: cardHeight } = document
-      .querySelector('#gallery')
-      .firstElementChild.getBoundingClientRect();
+      .querySelector('#gallery')!
+      .firstElementChild!.getBoundingClientRect();
     window.scrollBy({
       top: cardHeight * 2,
       behavior: 'smooth',

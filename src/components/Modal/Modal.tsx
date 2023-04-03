@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { ICurrentImage } from 'type/typeImages';
 
 import css from './Modal.module.css';
 
-export const Modal = ({ image: { src, alt }, onClose }) => {
+interface IProps {
+  image: ICurrentImage,
+  onClose: () => void,
+}
+
+export const Modal = ({ image: { src, alt }, onClose }: IProps) => {
   useEffect(() => {
-    const handleKeydown = evt => {
+    const handleKeydown = (evt: KeyboardEvent) => {
       if (evt.code === 'Escape') onClose();
     };
 
@@ -16,7 +21,7 @@ export const Modal = ({ image: { src, alt }, onClose }) => {
     };
   }, [onClose]);
 
-  const hanleClickBackdrop = evt => {
+  const hanleClickBackdrop = (evt: React.MouseEvent<HTMLDivElement>) => {
     if (evt.target === evt.currentTarget) onClose();
   };
 
@@ -29,10 +34,4 @@ export const Modal = ({ image: { src, alt }, onClose }) => {
   );
 };
 
-Modal.propTypes = {
-  image: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+

@@ -9,7 +9,6 @@ export const Loader = () => {
       color="#6b7280"
       ariaLabel="watch-loading"
       wrapperStyle={{ display: 'flex', justifyContent: 'center' }}
-      wrapperClassName=""
       visible={true}
     />
   );

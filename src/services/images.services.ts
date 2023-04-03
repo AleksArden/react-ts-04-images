@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { IFetch } from 'type/typeFetch';
 
 const imagesApi = axios.create({
     baseURL: 'https://pixabay.com/',
 });
 
-export const fetchImages = async (search, page) => {
-    const { data } = await imagesApi.get('api/', {
+export const fetchImages = async (search: string, page: number) => {
+    const { data } = await imagesApi.get<IFetch>('api/', {
         params: {
             q: search,
             page,

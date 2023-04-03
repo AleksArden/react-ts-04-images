@@ -4,14 +4,18 @@ import { BsSearch } from 'react-icons/bs';
 
 import css from './Searchbar.module.css';
 
-export const Searchbar = ({ onSubmit }) => {
+interface IProps {
+  onSubmit: (search: string) => void
+}
+
+export const Searchbar = ({ onSubmit }: IProps) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(value);
   };
 
-  const handleSubmit = evt => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     onSubmit(inputValue.trim());
   };

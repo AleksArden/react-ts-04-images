@@ -1,31 +1,24 @@
-import PropTypes from 'prop-types';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { ICurrentImage, IImages } from 'type/typeImages';
 
 import css from './ImageGallery.module.css';
 
-export const ImageGallery = ({ images, onOpenModal }) => {
+interface IProps{
+  images: IImages[],
+  onOpenModal: (image: ICurrentImage) => void
+}
+
+export const ImageGallery = ({ images, onOpenModal }: IProps) => {
   return (
     <ul className={css.gallery} id="gallery">
-      {images.map(({ id, webformatURL, tags, largeImageURL }) => (
+      {images.map((item) => (
         <ImageGalleryItem
-          key={id}
-          webformatURL={webformatURL}
-          largeImageURL={largeImageURL}
-          tags={tags}
+          key={item.id}
+        image={item}
           onOpenModal={onOpenModal}
         />
       ))}
     </ul>
   );
 };
-ImageGallery.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      webformatURL: PropTypes.string.isRequired,
-      tags: PropTypes.string.isRequired,
-      largeImageURL: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  onOpenModal: PropTypes.func.isRequired,
-};
+
