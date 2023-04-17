@@ -19,7 +19,7 @@ Notiflix.Notify.init({
 });
 
 export const App = () => {
-  const [images, setImages] = useState<IImages[]>([]);
+  const [images, setImages] = useState<IImages[] | []>([]);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
